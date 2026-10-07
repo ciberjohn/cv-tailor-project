@@ -50,6 +50,7 @@ Then send:
 | File | Purpose |
 |---|---|
 | `PROJECT-INSTRUCTIONS.md` | The instructions. Also built as `PROJECT-INSTRUCTIONS.pdf` and `.docx` |
+| `PROMPT-PACK.md` | Nine copy-paste prompts for anyone who just wants to open a chat: no project, no files, no commands |
 | `attachments/anti-slop-rules.md` | The writing rules, standalone, for any platform |
 | `attachments/banned-words.md` | The full banned vocabulary, phrases and openers, with research sources |
 | `attachments/no_slop_check.py` | Runs the check on a draft and exits non-zero on violations |

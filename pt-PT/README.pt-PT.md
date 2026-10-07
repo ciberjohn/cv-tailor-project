@@ -48,6 +48,7 @@ Depois envia:
 | Ficheiro | Para que serve |
 |---|---|
 | `PROJECT-INSTRUCTIONS.pt-PT.md` | As instruções. Também em `PROJECT-INSTRUCTIONS.pt-PT.pdf` e `.docx` |
+| `PROMPT-PACK.pt-PT.md` | Nove prompts para copiar e colar, sem projeto, sem ficheiros e sem comandos |
 | `attachments/anti-slop-rules.pt-PT.md` | As regras de escrita em português, autónomas, para qualquer plataforma |
 | `attachments/cv-print-template.pt-PT.html` | Modelo de CV A4, pronto para impressão, uma coluna |
 | `attachments/cover-letter-print-template.pt-PT.html` | Modelo de carta de apresentação A4 |
