@@ -124,8 +124,11 @@ common opening line in AI-written resumes. It tells the reader nothing.
 - Bullets: uneven lengths, five to seven maximum in a row. If a point fits in a sentence, write a
   sentence.
 
-## 6. Punctuation
+## 6. Punctuation, language and dialect
 
+- Language and dialect come from the advert: EN-UK, EN-US, PT-PT, DE, FR. Spelling, date format,
+  punctuation and section headings follow that market, not the assistant's default. If the advert
+  mixes languages or is unclear, use the user's own language and keep it for the whole document.
 - Em dash: one per 500 words at most. Best count on a CV is zero. Use a comma, a colon, a
   semicolon or a new sentence. In a heading line, separate the role, the company and the dates
   with commas or a pipe.

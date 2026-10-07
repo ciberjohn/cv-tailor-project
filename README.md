@@ -57,7 +57,7 @@ Then send:
 
 **Truth.** Three levels of edit permission. Wording, ordering and emphasis are free. A display title can carry a truthful qualifier. Numbers, dates, qualifications, tools and scope need your confirmation first. An advert keyword you cannot defend goes in the gap list, not the CV. Hidden keyword tricks fail anyway: parsers strip them and recruiters read them as fraud.
 
-**Machine legibility.** Single column, standard section names, contact details in the body rather than a header, dates as `Mon YYYY`, one font between 10.5 and 12pt, no tables, text boxes, icons, photos or graphics. Two pages maximum, with a defined cut order when it runs over.
+**Machine legibility.** Single column, standard section names, contact details in the body rather than a header, dates as `Mon YYYY`, one font between 10.5 and 12pt, no tables, text boxes, icons, photos or graphics. Two pages maximum, with a defined cut order when it runs over. Language and dialect mirror the advert, US, UK, Portuguese or whatever the posting uses, spelling and date formats included; when the advert is unclear, the user's language wins.
 
 **Voice.** The anti-slop rule set bans the vocabulary and the sentence shapes that make text read as machine-written: the rule of three, three sentences of the same length in a row, parataxis, passive constructions, hedging, and the em dash habit. On a CV it also bans `results-driven`, `team player`, `passionate about`, `responsible for` and the rest of the genre. Specifics replace all of it: numbers, tool names, outcomes.
 
