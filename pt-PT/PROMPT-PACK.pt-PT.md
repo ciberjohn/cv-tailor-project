@@ -2,7 +2,7 @@
 
 [English](../PROMPT-PACK.md) | **Português (Portugal)**
 
-Para quem quer abrir o ChatGPT, o Claude, o Gemini, o Copilot ou o Mistral e limitar-se a colar. As mesmas regras do projeto principal (verdade, formato legível por máquina, voz anti-slop), entregues como nove prompts para copiar e colar.
+Para quem quer abrir o ChatGPT, o Claude, o Gemini, o Copilot ou o Mistral e limitar-se a colar. As mesmas regras do projeto principal (verdade, formato legível por máquina, voz anti-slop), entregues como onze prompts para copiar e colar.
 
 Se consegues mexer nas definições de um projeto, usa antes o [PROJECT-INSTRUCTIONS.pt-PT.md](PROJECT-INSTRUCTIONS.pt-PT.md), que faz tudo isto sem pensares em prompts. Se não consegues, tudo o que está aqui funciona numa conversa simples, no telemóvel.
 
@@ -27,6 +27,8 @@ O resto é opcional: Prompt 4 para uma segunda opinião numa conversa nova, Prom
 | 6. Tirar o ficheiro | Antes de enviares seja o que for |
 | 7. Defesa na entrevista | Antes da entrevista |
 | 8. Versão de um só passo | Quando queres tudo numa resposta |
+| 9. Análise de LinkedIn | Uma vez por perfil, para reescrever título, "Acerca de", experiência e competências |
+| 10. Título de LinkedIn | Ganho rápido, quando queres opções para os 220 caracteres |
 
 ## Prompt 0: as regras
 
@@ -208,6 +210,59 @@ Faz tudo isto numa só resposta: (1) constrói o meu inventário de carreira, (2
 
 Não me perguntes nada. Onde faltar evidência, deixa fora do CV e lista como lacuna, com uma sugestão de resposta para a entrevista.
 ```
+
+## Prompt 9: análise do perfil de LinkedIn
+
+Primeiro tira o texto do teu perfil do LinkedIn. Os três caminhos, com os limites de cada um, estão no [LINKEDIN.pt-PT.md](LINKEDIN.pt-PT.md). Versão curta: o **Guardar em PDF** é um clique, mas só funciona em inglês e às vezes já não está lá; o **arquivo de dados**, em Definições e privacidade, Privacidade de dados, Obter uma cópia dos seus dados, dá-te CSV em texto simples em cerca de dez minutos, em qualquer língua, sem cortes. É esse que deves usar. Escreve à mão as partes que nenhuma exportação alcança: itens em destaque, projetos, o texto das recomendações e a ordem das competências.
+
+Depois cola o Prompt 0 e isto, com o texto do perfil e, se tiveres, o anúncio que estás a mirar.
+
+```
+O MEU PERFIL DE LINKEDIN, COMO EXPORTADO:
+[COLAR AQUI O TEXTO DO PERFIL]
+
+O MEU INVENTÁRIO DE CARREIRA:
+[COLAR AQUI O MEU INVENTÁRIO]
+
+O ANÚNCIO QUE ESTOU A MIRAR (ou escreve "nenhum"):
+[COLAR AQUI O ANÚNCIO]
+
+Analisa e reescreve o meu perfil com as regras que já tens, respeitando os limites de campo do LinkedIn.
+
+1. TABELA DE DIFERENÇAS: uma linha por campo, como campo | texto atual | o problema | a reescrita.
+2. COBERTURA DE PALAVRAS-CHAVE: os termos que o anúncio usa e se cada um aparece no meu título, no "Acerca de" ou na experiência.
+3. REESCRITAS, por esta ordem, cada uma com a contagem de caracteres entre parênteses:
+   - TÍTULO, 220 caracteres no máximo, com as palavras-chave mais importantes nos primeiros 70.
+   - ACERCA DE, 2 600 no máximo, com os primeiros 300 caracteres a aguentarem-se sozinhos.
+   - EXPERIÊNCIA, uma entrada por função, 2 000 caracteres no máximo cada, com datas e cargos iguais aos do meu CV.
+   - COMPETÊNCIAS, até 50, com as três a fixar assinaladas.
+   - EM DESTAQUE e RECOMENDAÇÕES: o que lá pôr e uma mensagem curta que eu possa enviar a pedir uma recomendação.
+4. LACUNAS: o que o anúncio quer e o meu perfil não pode reivindicar com honestidade.
+
+Nunca inventes empregadores, datas, números ou ferramentas, e assinala tudo o que o meu perfil afirme e o meu inventário não suporte. Nada pode passar do limite de caracteres.
+```
+
+## Prompt 10: só o título
+
+O título é o campo com mais peso na pesquisa, por isso vale uma passagem própria. Cola primeiro o Prompt 0.
+
+```
+O MEU INVENTÁRIO DE CARREIRA:
+[COLAR AQUI O MEU INVENTÁRIO]
+
+A FUNÇÃO QUE QUERO ATINGIR:
+[COLAR AQUI O ANÚNCIO OU O CARGO]
+
+Escreve oito títulos de LinkedIn com 220 caracteres ou menos. Cada um tem de: nomear a função-alvo nas palavras do mercado, incluir as ferramentas e especialidades que um recrutador pesquisaria, e levar uma prova com um número. Põe as palavras-chave mais importantes nos primeiros 70 caracteres.
+
+Marca o que publicarias e diz porquê numa linha. Sem "apaixonado por", sem adjetivo sem número por trás, sem emoji.
+```
+
+## Depois da reescrita: o hábito de cinco minutos
+
+Comenta com substância em três a cinco publicações por semana na tua área. Três frases que acrescentem algo: uma experiência, uma correção, um número. É o hábito todo, e faz mais pela forma como és lido do que um calendário de publicações.
+
+Publica raramente e só com algo específico. Nunca publiques saída crua de um modelo: o LinkedIn lançou em 2026 uma denúncia exatamente para isso, e o público que queres já reconhece o ritmo.
 
 ## Quando corre mal
 

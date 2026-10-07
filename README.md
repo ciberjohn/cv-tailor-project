@@ -57,6 +57,7 @@ Then send:
 | `attachments/md2docx.py` | Markdown to `.docx` with nothing but the Python standard library |
 | `attachments/cv-print-template.html` | A4 CV template, print-ready, single column |
 | `attachments/cover-letter-print-template.html` | A4 cover letter template |
+| `LINKEDIN.md` | The profile side: export routes, field limits, the audit and the rewrite order |
 | `pt-PT/` | The whole project in European Portuguese: instructions, rule set, templates, generated PDF and DOCX |
 
 ## The three rules that do the work

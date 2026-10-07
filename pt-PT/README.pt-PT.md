@@ -52,6 +52,7 @@ Depois envia:
 | `attachments/anti-slop-rules.pt-PT.md` | As regras de escrita em português, autónomas, para qualquer plataforma |
 | `attachments/cv-print-template.pt-PT.html` | Modelo de CV A4, pronto para impressão, uma coluna |
 | `attachments/cover-letter-print-template.pt-PT.html` | Modelo de carta de apresentação A4 |
+| `LINKEDIN.pt-PT.md` | O lado do perfil: formas de exportar, limites de campo, a análise e a ordem da reescrita |
 
 Os scripts `md2docx.py` e `no_slop_check.py` são iguais nas duas línguas e vivem em [`../attachments/`](../attachments). O verificador tem modo português:
 

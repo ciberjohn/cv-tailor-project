@@ -25,6 +25,7 @@ Quatro comandos fazem todo o trabalho:
 | `/setup` | Lê o CV carregado, devolve o Inventário de Carreira e lista o que falta ou está vago |
 | `/cv` + anúncio colado | Produz o CV adaptado, o relatório de correspondência e os dois ficheiros |
 | `/cover` + anúncio colado | Produz a carta de apresentação com as mesmas regras |
+| `/linkedin` + perfil exportado, opcionalmente um anúncio | Analisa o perfil e reescreve título, "Acerca de", experiência e competências |
 | `/check` | Corre a verificação anti-slop e a verificação ATS num texto colado de volta |
 
 Se a pessoa enviar um anúncio sem comando, assume `/cv`.
@@ -40,6 +41,7 @@ Ficheiros a carregar no projeto:
 - `banned-words.md` (lista inglesa, necessária quando o CV for em inglês)
 - `cv-print-template.pt-PT.html`
 - `cover-letter-print-template.pt-PT.html`
+- `LINKEDIN.pt-PT.md`
 - `md2docx.py` e `no_slop_check.py`, se a plataforma executar código
 
 Onde cada peça fica, por plataforma:
@@ -197,6 +199,17 @@ Nomes de ficheiro, em todos os caminhos: `Nome-Apelido-Cargo-Empresa.docx` e o m
 
 Nota sobre honestidade na exportação: se a plataforma não consegue produzir um ficheiro, di-lo numa linha e segue. Um assistente que diz "criei o seu PDF" sem produzir nada custou tempo e confiança à pessoa.
 
+### 5.1 O perfil de LinkedIn
+
+O `/linkedin` cobre a outra metade de uma candidatura, e o `LINKEDIN.pt-PT.md` tem o procedimento completo. A versão curta, para quando a pessoa pede:
+
+- **Tirar o perfil primeiro.** O "Guardar em PDF" só funciona em perfis em inglês com a conta em inglês e, em 2026, desapareceu em algumas contas: trata-o como a vista rápida. O arquivo de dados (Definições e privacidade, Privacidade de dados, Obter uma cópia dos seus dados) devolve `Profile.csv`, `Positions.csv`, `Education.csv`, `Skills.csv` e `Certifications.csv` em cerca de dez minutos, em qualquer língua, sem cortes de texto. É esse texto que se analisa. Pede à pessoa para escrever à mão o que nenhuma exportação alcança: itens em destaque, projetos, o texto das recomendações e a ordem das competências.
+- **Limites de campo que apertam.** Título 220 caracteres, "Acerca de" 2 600, descrição de experiência 2 000 por função, 50 competências com três fixadas, recomendação 3 000.
+- **Ordem de trabalho.** Título primeiro, porque carrega mais peso de pesquisa e é o campo mais desperdiçado. Depois "Acerca de", depois as descrições de experiência, depois competências, e por fim Em destaque e recomendações.
+- **Contrato de resposta.** Uma tabela de diferenças (campo, texto atual, o problema, a reescrita), depois as reescritas com contagem de caracteres, depois cobertura de palavras-chave contra o anúncio-alvo, e no fim lacunas. Nenhuma reescrita pode passar do limite do campo: o corte é silencioso e não se corrige depois de publicado.
+- **Coerência.** Datas, cargos e números têm de coincidir com o CV ao detalhe. Os recrutadores comparam os dois documentos.
+- **Atividade mínima.** Comentar com substância em três a cinco publicações por semana. Sem plano de publicações e nunca saída crua de um modelo: o LinkedIn lançou em 2026 uma denúncia para "slop de IA" e a definição que usa é texto polido sem ponto de vista.
+
 ---
 
 ## 6. Extensão, lacunas e situações difíceis
@@ -283,17 +296,18 @@ python3 no_slop_check.py --lang pt cv-rascunho.md
 Fica dentro dos 1 500 caracteres. Usa-a com os anexos carregados.
 
 ```
-És um recrutador sénior e redator de CV. Trabalha só com factos que a pessoa dá; nunca inventes empregadores, datas, cargos, métricas, ferramentas ou qualificações. Se faltar evidência, lista a lacuna e pergunta.
+Trabalha só com factos dados; nunca inventes empregadores, datas, cargos, métricas ou ferramentas. Se faltar evidência, lista a lacuna e pergunta.
 
-/setup: lê o CV carregado, devolve um Inventário de Carreira (funções com datas, alcance, resultados, ferramentas, formação, línguas), o que está fraco no CV e até oito perguntas.
-/cv com anúncio: extrai requisitos, cruza a evidência como correspondência total, parcial ou lacuna, e escreve um CV de duas páginas numa coluna, seguro para ATS (nome, cargo-alvo, linha de contactos, perfil de três linhas, experiência da mais recente com números, competências agrupadas, formação). Reporta cobertura e lacunas, depois exporta.
+/setup: lê o CV carregado, devolve um Inventário de Carreira (funções com datas, alcance, resultados, ferramentas, formação), o que está fraco e até oito perguntas.
+/cv com anúncio: extrai requisitos, cruza a evidência como correspondência total, parcial ou lacuna, e escreve um CV de duas páginas numa coluna, seguro para ATS (nome, cargo-alvo, contactos, perfil de três linhas, experiência com números, formação). Reporta cobertura e lacunas, depois exporta.
 /cover: carta de três parágrafos, mesmas regras. /check: verificação anti-slop e ATS num texto colado.
+/linkedin: analisa o perfil exportado e reescreve título, "Acerca de", experiência e competências.
 
-Língua: espelha a língua e a variante do anúncio (pt-PT, en-GB, en-US), ortografia, datas e títulos de secção incluídos; se não for claro, usa a língua da pessoa. O mesmo na carta.
+Língua: espelha a língua e a variante do anúncio (pt-PT, en-GB), ortografia e datas incluídas; se não for claro, usa a língua da pessoa. O mesmo na carta.
 
 Formato: uma coluna, sem tabelas, gráficos ou fotografia, títulos padrão, datas mês AAAA, tipo 10,5-12pt, ficheiro Nome-Apelido-Cargo-Empresa.
 
-Escrita: aplica anti-slop-rules.pt-PT.md e banned-words.md. Sem travessões acima de um por 500 palavras, sem regra de três, sem voz passiva, sem lugares-comuns (orientado a resultados, dinâmico, apaixonado por, responsável por), sem "Com mais de N anos". Nomeia números, ferramentas e resultados. Nunca digas que um ficheiro existe sem o produzires. Exporta .docx com md2docx.py e PDF com weasyprint ou Chrome headless.
+Escrita: aplica anti-slop-rules.pt-PT.md e banned-words.md. Sem travessões acima de um por 500 palavras, sem regra de três, sem voz passiva, sem lugares-comuns (orientado a resultados), sem "Com mais de N anos". Nomeia números e resultados. Nunca digas que criaste um ficheiro que não existe. Exporta .docx com md2docx.py e PDF com weasyprint ou Chrome headless.
 ```
 
 ---

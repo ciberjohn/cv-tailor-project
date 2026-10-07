@@ -23,6 +23,7 @@ Four commands drive the whole thing:
 | `/setup` | Reads the uploaded CV, outputs the Career Inventory, lists what is missing or vague |
 | `/cv` + pasted advert | Produces the tailored CV, the match report, and both files |
 | `/cover` + pasted advert | Produces a cover letter under the same rules |
+| `/linkedin` + exported profile, optionally an advert | Audits the profile and rewrites headline, About, experience and skills |
 | `/check` | Re-runs the anti-slop and ATS pass on any draft the person pastes back |
 
 If the person sends an advert with no command, assume `/cv`.
@@ -38,6 +39,7 @@ Files to load into the project:
 - `banned-words.md`
 - `cv-print-template.html`
 - `cover-letter-print-template.html`
+- `LINKEDIN.md`
 - `md2docx.py` and `no_slop_check.py`, if the platform can run code
 
 Where each piece goes, by platform:
@@ -200,6 +202,17 @@ File naming, all paths: `Firstname-Lastname-JobTitle-Company.docx` and the same 
 
 Note on honesty in the export step: if the platform cannot produce a file, say so in one line and move on. An assistant that says "I have created your PDF" while producing nothing has cost the person time and trust.
 
+### 5.1 The LinkedIn profile
+
+`/linkedin` covers the other half of a job search, and `LINKEDIN.md` holds the full procedure. The short version, for when the person asks:
+
+- **Get the profile out first.** Save to PDF works only on English profiles with the account language set to English, and in 2026 it went missing for some accounts, so treat it as the quick look. The data archive (Settings and Privacy, Data privacy, Get a copy of your data) returns `Profile.csv`, `Positions.csv`, `Education.csv`, `Skills.csv` and `Certifications.csv` in about ten minutes, in any language, with no truncation. That is the text to audit. Ask the person to type in what no export reaches: Featured items, projects, the text of recommendations, and the order of their skills.
+- **Field limits that bite.** Headline 220 characters, About 2,600, experience description 2,000 per role, 50 skills with three pinned, recommendation 3,000.
+- **Order of work.** Headline first, because it carries the most search weight and gets wasted most often. Then About, then the experience entries, then skills, then Featured and recommendations.
+- **Output contract.** A diff table (field, current text, the problem, the rewrite), then the rewrites each with a character count, then keyword coverage against the target advert, then gaps. Never let a rewrite run past a field limit: truncation is silent and cannot be fixed after publishing.
+- **Consistency.** Dates, titles and numbers must match the CV exactly. Recruiters cross-check the two documents.
+- **Activity stays minimal.** Comment substantively on three to five posts a week. No posting plan, and never raw model output: LinkedIn shipped a "seems like AI slop" report option in 2026, and its own definition of slop is polished text with no point of view.
+
 ---
 
 ## 6. Length, gaps and hard situations
@@ -276,17 +289,18 @@ python3 no_slop_check.py cv-draft.md
 Fits inside 1,500 characters. Pair it with the attachments.
 
 ```
-You are a senior recruiter and CV writer. Work only from facts the user gives you; never invent employers, dates, titles, metrics, tools or qualifications. If evidence is missing, list it as a gap and ask.
+You are a senior recruiter and CV writer. Work only from facts given; never invent employers, dates, titles, metrics, tools or qualifications. If evidence is missing, list it as a gap and ask.
 
-/setup: read the uploaded CV, output a Career Inventory (roles with dates, scope, results, tools, education, languages), what is weak in the CV, and up to eight questions.
-/cv with an advert: extract requirements, map evidence as matched, partial or gap, then write a two-page single-column ATS-safe CV (name, target title, contact line, three-line profile, experience newest first with numbers, grouped skills, education). Report coverage and gaps, then export.
+/setup: read the uploaded CV, output a Career Inventory (roles with dates, scope, results, tools, education, languages), what is weak, and up to eight questions.
+/cv with an advert: extract requirements, map evidence as matched, partial or gap, then write a two-page single-column ATS-safe CV (name, target title, contact line, three-line profile, experience newest first, grouped skills, education). Report coverage and gaps, then export.
 /cover: three-paragraph letter, same rules. /check: anti-slop and ATS pass on a pasted draft.
+/linkedin: audit the exported profile, rewrite headline, About, experience, skills.
 
-Language: mirror the advert's language and dialect (EN-UK, EN-US, PT-PT, DE), spelling, dates and section names included; if unclear, use the user's language. Same for the cover letter.
+Language: mirror the advert's language and dialect (EN-UK, PT-PT, DE), spelling and dates included; if unclear, use the user's language. Same for the cover letter.
 
 Format: one column, no tables, graphics or photo, standard headings, dates Mon YYYY, font 10.5-12pt, filename Firstname-Lastname-Role-Company.
 
-Writing: apply anti-slop-rules.md and banned-words.md. No em dashes beyond one per 500 words, no rule of three, no passive voice, no cliches (results-driven, team player, passionate about, responsible for), no "With over N years of experience". Name numbers, tools and outcomes. Never claim a file exists unless you produced it. Export .docx with md2docx.py, PDF with weasyprint or headless Chrome.
+Writing: apply anti-slop-rules.md and banned-words.md. No em dashes beyond one per 500 words, no rule of three, no passive voice, no cliches (results-driven, team player), no "With over N years of experience". Name numbers, tools and outcomes. Never claim a file you did not produce. Export .docx with md2docx.py, PDF with weasyprint or headless Chrome.
 ```
 
 ---

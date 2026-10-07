@@ -2,7 +2,7 @@
 
 **English** | [Português (Portugal)](pt-PT/PROMPT-PACK.pt-PT.md)
 
-For anyone who wants to open ChatGPT, Claude, Gemini, Copilot or Mistral and just paste. Same rules as the main project (truth, machine-readable format, anti-slop voice), delivered as nine prompts you copy and paste.
+For anyone who wants to open ChatGPT, Claude, Gemini, Copilot or Mistral and just paste. Same rules as the main project (truth, machine-readable format, anti-slop voice), delivered as eleven prompts you copy and paste.
 
 If you can manage project settings, use [PROJECT-INSTRUCTIONS.md](PROJECT-INSTRUCTIONS.md) instead, because it does all of this without you thinking about prompts. If you cannot, everything below works in a plain chat on a phone.
 
@@ -27,6 +27,8 @@ Everything else is optional: Prompt 4 for a second opinion in a fresh chat, Prom
 | 6. Get the file out | Before you send anything |
 | 7. Interview defence | Before the interview |
 | 8. One-shot version | When you want everything in a single reply |
+| 9. LinkedIn audit | Once per profile, to rewrite headline, About, experience and skills |
+| 10. LinkedIn headline | Quick win, when you want options for the 220-character field |
 
 ## Prompt 0: the rules
 
@@ -208,6 +210,59 @@ Do all of this in one reply: (1) build my career inventory, (2) break down the a
 
 Ask me nothing. Where evidence is missing, leave it out of the CV and list it as a gap with a suggested interview answer.
 ```
+
+## Prompt 9: LinkedIn profile audit
+
+First get your profile text out of LinkedIn. The three routes, with their limits, are in [LINKEDIN.md](LINKEDIN.md). Short version: **Save to PDF** is one click but English-only and sometimes missing; the **data archive** under Settings and Privacy, Data privacy, Get a copy of your data gives you plain-text CSVs in about ten minutes, in any language, with nothing truncated. That is the one to use. Type in the parts no export reaches: your Featured items, projects, recommendation text and the order of your skills.
+
+Then paste Prompt 0 and this, with the profile text and, if you have one, the advert you are aiming at.
+
+```
+MY LINKEDIN PROFILE, AS EXPORTED:
+[PASTE THE PROFILE TEXT HERE]
+
+MY CAREER INVENTORY:
+[PASTE MY INVENTORY HERE]
+
+THE JOB ADVERT I AM AIMING AT (or write "none"):
+[PASTE THE ADVERT]
+
+Audit and rewrite my profile against the rules you already have, respecting LinkedIn's field limits.
+
+1. DIFF TABLE: one row per field, as field | current text | the problem | the rewrite.
+2. KEYWORD COVERAGE: the terms the advert uses, and whether each appears in my headline, About or experience.
+3. REWRITES, in this order, each with its character count in brackets:
+   - HEADLINE, 220 characters maximum, most important keywords inside the first 70 characters.
+   - ABOUT, 2,600 maximum, with the first 300 characters standing alone.
+   - EXPERIENCE, one entry per role, 2,000 characters maximum each, dates and titles identical to my CV.
+   - SKILLS, up to 50, with the three to pin marked.
+   - FEATURED and RECOMMENDATIONS: what to put there, and one short message I can send to ask for a recommendation.
+4. GAPS: what the advert wants that my profile cannot honestly claim.
+
+Never invent employers, dates, numbers or tools, and flag anything my profile claims that my inventory does not support. Nothing may exceed its character limit.
+```
+
+## Prompt 10: the headline alone
+
+The headline is the field with the most search weight, so give it its own pass. Paste Prompt 0 first.
+
+```
+MY CAREER INVENTORY:
+[PASTE MY INVENTORY HERE]
+
+THE ROLE I AM TARGETING:
+[PASTE THE ADVERT OR THE JOB TITLE]
+
+Write eight LinkedIn headlines of 220 characters or fewer. Each one must: name the target role in the market's words, include the tools and specialisms a recruiter would search for, and carry one proof point with a number. Put the most important keywords inside the first 70 characters.
+
+Mark the one you would ship, and say why in one line. No "passionate about", no adjective without a number behind it, no emoji.
+```
+
+## After the rewrite: the five-minute habit
+
+Comment substantively on three to five posts in your field each week. Three sentences that add something: an experience, a correction, a number. That is the whole habit, and it does more for how you are read than a posting schedule.
+
+Post rarely and only with something specific. Never publish raw model output: LinkedIn shipped a report option for exactly that in 2026, and the audience you want already recognises the rhythm.
 
 ## When it goes wrong
 
