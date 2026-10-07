@@ -1,6 +1,10 @@
 # CV Tailor
 
+**English** | [Português (Portugal)](pt-PT/README.pt-PT.md)
+
 Drop-in project instructions for Claude, ChatGPT, Mistral Vibe, Gemini, Copilot or any local agent. Upload one CV, paste a job advert, get a tailored CV in `.docx` and PDF that does not read like a machine wrote it.
+
+The Portuguese version is a full duplicate, not a summary: instructions, rule set, checker mode (`--lang pt`), templates and generated documents, written in European Portuguese.
 
 ## The problem this solves
 
@@ -52,6 +56,7 @@ Then send:
 | `attachments/md2docx.py` | Markdown to `.docx` with nothing but the Python standard library |
 | `attachments/cv-print-template.html` | A4 CV template, print-ready, single column |
 | `attachments/cover-letter-print-template.html` | A4 cover letter template |
+| `pt-PT/` | The whole project in European Portuguese: instructions, rule set, templates, generated PDF and DOCX |
 
 ## The three rules that do the work
 

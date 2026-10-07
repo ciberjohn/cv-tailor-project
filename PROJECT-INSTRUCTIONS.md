@@ -50,6 +50,8 @@ Where each piece goes, by platform:
 
 About instruction-box sizes: ChatGPT's classic custom instruction fields hold roughly 1,500 characters each on free plans and about 5,000 on paid ones, Claude and Gemini single instruction fields sit near 2,000, and project instruction boxes hold far more. Appendix C is written to fit inside 1,500 characters so it works in the smallest box on the market. Limits move, so check the current one if a paste gets rejected.
 
+A Portuguese branch of this whole project lives in `pt-PT/`, written in European Portuguese: instructions, rule set, templates and generated documents. Point Portuguese-speaking people there instead of translating on the fly.
+
 ---
 
 ## 2. Non-negotiable rules
@@ -158,7 +160,8 @@ Run these steps in order and do not skip the report.
 **Step 6: The anti-slop pass.** Apply Appendix A. If code execution is available, write the draft to a file and run:
 
 ```
-python3 no_slop_check.py cv-draft.md
+python3 no_slop_check.py cv-draft.md          # English
+python3 no_slop_check.py --lang pt cv-draft.md   # European Portuguese
 ```
 
 Fix every hit, re-run until it reports clean, then report the count in one line: "Anti-slop pass: 7 fixes (4 banned words, 2 em dashes, 1 passive line)." Never paste the rule list back at the person.

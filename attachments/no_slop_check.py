@@ -7,10 +7,14 @@ Prints findings with line numbers and exits non-zero when violations are found.
 
 Usage:
     python3 no_slop_check.py file.md [file2.md ...]
+    python3 no_slop_check.py --lang pt cv-pt.md        # European Portuguese patterns
+    python3 no_slop_check.py --lang all draft.md       # English and Portuguese together
     cat draft.txt | python3 no_slop_check.py -
     python3 no_slop_check.py --help
 
-Keep the pattern lists in sync with references/banned-words.md.
+Keep the English pattern lists in sync with references/banned-words.md.
+The Portuguese lists cover the slop that Portuguese-language models produce;
+the punctuation counters are language-neutral.
 """
 
 import argparse
@@ -75,13 +79,85 @@ CHECKLIST_PATTERNS = [
     ("in an era of", r"\bin an era of\b"),
 ]
 
+# --- European Portuguese (pt-PT) -------------------------------------------
+# Portuguese-language models produce their own slop, most of it translated
+# straight from the English list. Matching is case-insensitive.
+
+PT_WORDS = [
+    r"\bmergulh\w*\b", r"\btape[çc]aria\b", r"\btestemunho\b",
+    r"\balavanc\w*\b", r"\botimiz\w*\b", r"\bpotencializ\w*\b",
+    r"\bcatalis\w*\b", r"\bimpulsion\w*\b", r"\bfoment\w*\b",
+    r"\baprimor\w*\b", r"\bpotenci\w*\b", r"\bempoder\w*\b",
+    r"\bcapacitar\b",
+    r"\brobust\w*\b", r"\babrangente\w*\b", r"\bholístic\w*\b",
+    r"\bmultifacetad\w*\b", r"\bintrincad\w*\b", r"\bmeticulos\w*\b",
+    r"\bminucios\w*\b", r"\bcrucial\b", r"\bcruciais\b",
+    r"\btransformador\w*\b", r"\brevolucionári\w*\b", r"\bdisruptiv\w*\b",
+    r"\bparadigm\w*\b", r"\bsinergi\w*\b", r"\bemblemátic\w*\b",
+    r"\bicónic\w*\b", r"\bvibrante\b", r"\bnotáve\w*\b",
+    r"\bsem precedentes\b", r"\bdesvendar\b", r"\bdesbloquear\b",
+    r"\bimprescindíve\w*\b", r"\bexponencial\w*\b",
+    r"\btransversalizar\b", r"\bdestacando-se\b",
+]
+
+PT_PHRASES = [
+    r"no mundo de hoje", r"nos dias de hoje", r"no atual panorama",
+    r"no panorama atual", r"no cenário atual", r"num mundo cada vez mais",
+    r"é importante notar", r"é importante salientar", r"importa notar",
+    r"importa salientar", r"importa referir", r"vale a pena notar",
+    r"vale a pena salientar", r"convém lembrar", r"é de salientar",
+    r"vamos mergulhar", r"mergulhar neste", r"vamos explorar",
+    r"em suma", r"em conclusão", r"para concluir", r"resumindo",
+    r"concluindo,", r"em primeiro lugar", r"em segundo lugar", r"por último,",
+    r"no âmbito de", r"no contexto de", r"com o objetivo de", r"de forma a",
+    r"ao nível de", r"no que diz respeito a", r"no que toca a",
+    r"não só\b.*\bmas também",
+    r"espero que esteja tudo bem", r"espero que este email",
+    r"não hesite em contactar", r"fico ao seu dispor",
+    r"excelente pergunta", r"boa pergunta", r"ótima pergunta",
+    r"é com muito gosto", r"terei todo o gosto",
+    r"orientad[oa] a resultados", r"orientad[oa] para resultados",
+    r"pensamento fora da caixa", r"fora da caixa",
+    r"líder de pensamento", r"ponto de viragem",
+    r"pontos de dor", r"valor acrescentado", r"mover a agulha",
+    r"espírito de equipa", r"apaixonad[oa] por",
+    r"experiência comprovada", r"sólida experiência", r"longa experiência",
+    r"excelentes capacidades de comunicação",
+    r"excelente capacidade de comunicação",
+    r"candidato ideal", r"à altura do desafio",
+]
+
+PT_OPENERS = [
+    r"^claro,", r"^certamente,", r"^com certeza,", r"^sem dúvida,",
+    r"^excelente pergunta", r"^boa pergunta", r"^ótima pergunta",
+    r"^enquanto ia\b", r"^enquanto modelo de linguagem",
+    r"^aqui está", r"^vamos lá", r"^importa notar", r"^importa referir",
+    r"^além disso,", r"^por outro lado,", r"^ademais,", r"^desta forma,",
+    r"^com mais de \d+ anos", r"^um dos mais",
+    r"^responsável por\b",
+]
+
+PT_CHECKLIST = [
+    ("é importante notar", r"é importante notar"),
+    ("importa salientar", r"importa salientar"),
+    ("no mundo de hoje", r"no mundo de hoje"),
+    ("em suma / em conclusão", r"\bem (suma|conclusão)\b"),
+    ("orientado a resultados", r"orientad[oa] (a|para) resultados"),
+]
+
 EM_DASH = "\u2014"
 ELLIPSIS = "\u2026"
 
 
-def scan(text, source):
+def scan(text, source, lang="en"):
     findings = []          # (category, line_no, pattern)
     counters = {"em_dash": 0, "exclamation": 0, "ellipsis": 0, "words": 0}
+
+    use_pt = lang in ("pt", "all")
+    words = BANNED_WORDS + (PT_WORDS if use_pt else [])
+    phrases = BANNED_PHRASES + (PT_PHRASES if use_pt else [])
+    openers = BANNED_OPENERS + (PT_OPENERS if use_pt else [])
+    checks = CHECKLIST_PATTERNS + (PT_CHECKLIST if use_pt else [])
 
     lines = text.splitlines()
     in_fence = False
@@ -99,16 +175,16 @@ def scan(text, source):
 
         low = line.lower()
 
-        for pattern in BANNED_WORDS:
+        for pattern in words:
             if re.search(pattern, low):
                 findings.append(("banned word", idx, pattern.strip("\\b^$")))
-        for pattern in BANNED_PHRASES:
+        for pattern in phrases:
             if re.search(pattern, low):
                 findings.append(("banned phrase", idx, pattern))
-        for pattern in BANNED_OPENERS:
+        for pattern in openers:
             if re.search(pattern, low):
                 findings.append(("banned opener", idx, pattern))
-        for name, pattern in CHECKLIST_PATTERNS:
+        for name, pattern in checks:
             if re.search(pattern, low):
                 findings.append(("checklist", idx, name))
 
@@ -132,6 +208,8 @@ def main():
     parser = argparse.ArgumentParser(
         description="Check text for AI-slop patterns (ciberjohn-no-slop).")
     parser.add_argument("files", nargs="*", help="Files to scan, or - for stdin")
+    parser.add_argument("--lang", choices=["en", "pt", "all"], default="en",
+                        help="Pattern set: en (default), pt (European Portuguese), all")
     args = parser.parse_args()
 
     total_violations = 0
@@ -144,7 +222,7 @@ def main():
                 text = fh.read()
             label = source
 
-        findings, counters = scan(text, source)
+        findings, counters = scan(text, source, args.lang)
         violations = len(findings)
 
         em_limit = max(1, counters["words"] // 500)
