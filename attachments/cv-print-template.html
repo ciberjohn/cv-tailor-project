@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>CV__NAME__</title>
+<style>
+  @page { size: A4; margin: 14mm 15mm 14mm 15mm; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { font-family: Calibri, Carlito, Arial, Helvetica, sans-serif; font-size: 10.5pt;
+         line-height: 1.34; color: #16181d; margin: 0; }
+  h1 { font-size: 21pt; line-height: 1.12; margin: 0 0 1mm; letter-spacing: -0.2px; color: #1F3864; }
+  .tagline { font-size: 11pt; color: #3b4252; margin: 0 0 1.5mm; }
+  .contact { font-size: 9.5pt; color: #4a5160; margin: 0 0 4mm; }
+  .contact span + span::before { content: "  |  "; color: #9aa2b1; }
+  h2 { font-size: 11pt; text-transform: uppercase; letter-spacing: 0.6px; color: #1F3864;
+       margin: 5mm 0 1.6mm; padding-bottom: 0.8mm; border-bottom: 0.6pt solid #b9c0cc; }
+  h3 { font-size: 10.5pt; margin: 3mm 0 0.6mm; color: #16181d; }
+  .rolemeta { font-size: 9.8pt; color: #4a5160; margin: 0 0 1.2mm; }
+  p { margin: 0 0 1.6mm; }
+  ul { margin: 0 0 1.6mm 4.6mm; padding: 0; }
+  li { margin-bottom: 0.9mm; }
+  .skills p { margin: 0 0 1mm; }
+  strong { font-weight: 700; }
+  .section { break-inside: avoid; }
+  section + section { break-before: auto; }
+</style>
+</head>
+<body>
+
+  <header>
+    <h1>__FULL_NAME__</h1>
+    <p class="tagline">__TARGET_ROLE__</p>
+    <p class="contact">
+      <span>__CITY__, __COUNTRY__</span>
+      <span>__PHONE__</span>
+      <span>__EMAIL__</span>
+      <span>__LINKEDIN_OR_PORTFOLIO__</span>
+    </p>
+  </header>
+
+  <section class="section">
+    <h2>Profile</h2>
+    <p>__THREE_TO_FOUR_LINES_MAX__ Two or three sentences tied to this advert: what the person does, the scale they do it at, and the one result that matches the advert best.</p>
+  </section>
+
+  <section class="section">
+    <h2>Experience</h2>
+
+    <h3>__JOB_TITLE__</h3>
+    <p class="rolemeta">__COMPANY__, __CITY__ | __MONTH_YEAR__ to __MONTH_YEAR_OR_PRESENT__</p>
+    <ul>
+      <li>__ACTION_AND_RESULT__ Start with a verb. End with a number or a named outcome.</li>
+      <li>__FIVE_BULLETS_MAX__ Delete the weakest one before adding a sixth.</li>
+      <li>__TOOL_OR_SCOPE__ Name the system and the size of the thing: 60 servers, 400 tickets, 900 seats.</li>
+    </ul>
+
+    <h3>__EARLIER_JOB_TITLE__</h3>
+    <p class="rolemeta">__COMPANY__, __CITY__ | __DATES__</p>
+    <ul>
+      <li>__ACTION_AND_RESULT__ Older roles get fewer bullets and less space.</li>
+    </ul>
+  </section>
+
+  <section class="section skills">
+    <h2>Skills</h2>
+    <p><strong>__GROUP_NAME__:</strong> __TOOLS_MIRRORING_THE_ADVERT__</p>
+    <p><strong>__GROUP_NAME__:</strong> __TOOLS_MIRRORING_THE_ADVERT__</p>
+  </section>
+
+  <section class="section">
+    <h2>Education and certifications</h2>
+    <p>__QUALIFICATION__, __INSTITUTION__, __YEAR__</p>
+  </section>
+
+</body>
+</html>
