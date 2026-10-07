@@ -2,9 +2,26 @@
 
 **English** | [Português (Portugal)](pt-PT/README.pt-PT.md)
 
-Drop-in project instructions for Claude, ChatGPT, Mistral Vibe, Gemini, Copilot or any local agent. Upload one CV, paste a job advert, get a tailored CV in `.docx` and PDF that does not read like a machine wrote it.
+Upload one CV, paste a job advert, get a tailored CV in `.docx` and PDF that does not read like a machine wrote it. The same rule set also cleans up your LinkedIn profile.
 
 The Portuguese version is a full duplicate, not a summary: instructions, rule set, checker mode (`--lang pt`), templates and generated documents, written in European Portuguese.
+
+## Two ways to use this
+
+Both carry identical rules. Pick by how much you are willing to set up.
+
+**As a project** — if you can spend five minutes in settings. Paste the instructions into a Claude Project, a ChatGPT Project or a Custom GPT, upload the files once, and from then on you just type `/setup`, `/cv`, `/cover`, `/linkedin`. This is the full experience: the rules travel without you pasting anything, and the assistant exports the `.docx` and the PDF itself when the platform can run code.
+
+**As a prompt pack** — if you cannot, or would rather not. [`PROMPT-PACK.md`](PROMPT-PACK.md) is the same thing reduced to eleven prompts you copy and paste into any chat, including a free account on a phone. No project, no files, no settings, no instruction box. The trade: you paste the rules at the start of each new chat, and you move the text into Word or Google Docs yourself.
+
+| You want | Use | Setup |
+|---|---|---|
+| Commands, automatic file export, rules loaded once | [`PROJECT-INSTRUCTIONS.md`](PROJECT-INSTRUCTIONS.md) in a project, a Custom GPT or an agent CLI | Five minutes, once |
+| Nothing to configure, works in a plain chat on a phone | [`PROMPT-PACK.md`](PROMPT-PACK.md) | None |
+
+Both routes run the same anti-slop pass on every draft, and both work from the same evidence rule. [`LINKEDIN.md`](LINKEDIN.md) applies to either.
+
+If your instruction box is tiny (ChatGPT's custom instruction fields, a Gemini Gem, Copilot), the project route still works in reduced form: paste Appendix C of `PROJECT-INSTRUCTIONS.md`, which fits in under 1,500 characters.
 
 ## The problem this solves
 
@@ -22,14 +39,17 @@ Nothing is invented. The rewrite changes emphasis, order, wording and length. If
 
 ## Commands
 
+These belong to the **project route**. In the prompt pack the same jobs are done by Prompt 1 to Prompt 10.
+
 | Command | Result |
 |---|---|
 | `/setup` | Career Inventory, issues in the current CV, up to eight questions |
 | `/cv` + advert | Tailored CV, match report, gap list, `.docx` and PDF |
 | `/cover` + advert | Cover letter under the same rules |
+| `/linkedin` + exported profile | Audit and rewrite of headline, About, experience and skills |
 | `/check` | Anti-slop and ATS pass on any draft you paste back |
 
-## Quick start
+## Quick start: as a project
 
 **Claude Project or ChatGPT Project**: put `PROJECT-INSTRUCTIONS.md` in the project instructions, upload everything in `attachments/` plus your CV as project files. Then run `/setup`.
 
@@ -45,20 +65,22 @@ Then send:
 
 > `/setup` Here is my current CV. Build the Career Inventory, tell me what is weak, and ask me what you need.
 
+Cannot do any of that, or do not want to? Skip to [`PROMPT-PACK.md`](PROMPT-PACK.md) and paste Prompt 0 instead.
+
 ## What is in this repo
 
 | File | Purpose |
 |---|---|
-| `PROJECT-INSTRUCTIONS.md` | The instructions. Also built as `PROJECT-INSTRUCTIONS.pdf` and `.docx` |
-| `PROMPT-PACK.md` | Nine copy-paste prompts for anyone who just wants to open a chat: no project, no files, no commands |
+| `PROJECT-INSTRUCTIONS.md` | The instructions for the project route. Also built as `PROJECT-INSTRUCTIONS.pdf` and `.docx` |
+| `PROMPT-PACK.md` | The no-setup route: eleven copy-paste prompts for any chat, no project, no files, no commands |
+| `LINKEDIN.md` | The profile side: export routes, field limits, the audit and the rewrite order |
 | `attachments/anti-slop-rules.md` | The writing rules, standalone, for any platform |
 | `attachments/banned-words.md` | The full banned vocabulary, phrases and openers, with research sources |
 | `attachments/no_slop_check.py` | Runs the check on a draft and exits non-zero on violations |
 | `attachments/md2docx.py` | Markdown to `.docx` with nothing but the Python standard library |
 | `attachments/cv-print-template.html` | A4 CV template, print-ready, single column |
 | `attachments/cover-letter-print-template.html` | A4 cover letter template |
-| `LINKEDIN.md` | The profile side: export routes, field limits, the audit and the rewrite order |
-| `pt-PT/` | The whole project in European Portuguese: instructions, rule set, templates, generated PDF and DOCX |
+| `pt-PT/` | The whole project in European Portuguese, in both routes |
 
 ## The three rules that do the work
 
@@ -74,13 +96,13 @@ The instructions carry three export paths so the answer matches what the platfor
 
 - **Code execution available** (Claude with analysis, ChatGPT with the code tool, Mistral Vibe, a local agent): `python3 md2docx.py cv.md "Firstname-Lastname-Role-Company.docx"` for Word, and `weasyprint`, headless Chrome or LibreOffice for the PDF.
 - **File output, no shell** (canvas, artifacts): fill in `cv-print-template.html`, then print to PDF from the browser, or open the same file in Word and save as `.docx`.
-- **Text only**: one fenced markdown block, pasted into Word or Google Docs and exported by hand.
+- **Text only** (the prompt pack route): one fenced markdown block, pasted into Word or Google Docs and exported by hand.
 
 `md2docx.py` needs no packages and no network, which is why it works in sandboxes that block installs. It writes a genuine Office Open XML file: paragraphs, headings, bullets, tables and monospaced code, all from plain markdown.
 
 ## A note on honesty in the tool
 
-An assistant that says "I have created your PDF" while producing nothing has wasted your time. The instructions forbid that claim: if the platform cannot make a file, it says so and points at the export path that fits. Every file in this repo was produced and opened by the tools it describes.
+An assistant that says "I have created your PDF" while producing nothing has wasted your time. Both routes forbid that claim: if the platform cannot make a file, it says so and points at the export path that fits. Every file in this repo was produced and opened by the tools it describes.
 
 ## Credits
 

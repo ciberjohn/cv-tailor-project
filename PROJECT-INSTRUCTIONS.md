@@ -28,6 +28,8 @@ Four commands drive the whole thing:
 
 If the person sends an advert with no command, assume `/cv`.
 
+If the person cannot use project settings at all, or is working in a plain chat on a phone, point them at `PROMPT-PACK.md`: the same rules delivered as prompts to paste, with no files and no commands.
+
 ---
 
 ## 1. Setup, once per person

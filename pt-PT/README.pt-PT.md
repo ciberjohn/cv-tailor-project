@@ -1,8 +1,27 @@
 # CV Tailor (pt-PT)
 
-Instruções de projeto que entram em qualquer assistente capaz: Claude, ChatGPT, Mistral Vibe, Gemini, Copilot ou um agente local. Carregas um CV, colas um anúncio de emprego, recebes um CV adaptado em `.docx` e PDF que não parece escrito por uma máquina.
+Carregas um CV, colas um anúncio de emprego, recebes um CV adaptado em `.docx` e PDF que não parece escrito por uma máquina. O mesmo conjunto de regras também trata do teu perfil de LinkedIn.
 
 Versão inglesa: [README.md](../README.md)
+
+A versão portuguesa é uma duplicação completa, não um resumo: instruções, regras, modo português do verificador (`--lang pt`), modelos e documentos gerados, escritos em português de Portugal.
+
+## Duas formas de usar isto
+
+As duas levam as mesmas regras. Escolhe pela paciência que tens para configurar.
+
+**Como projeto** — se puderes gastar cinco minutos nas definições. Colas as instruções num Projeto do Claude, num Projeto do ChatGPT ou num GPT personalizado, carregas os ficheiros uma vez, e a partir daí escreves apenas `/setup`, `/cv`, `/cover`, `/linkedin`. É a experiência completa: as regras viajam sem colares nada, e o assistente exporta o `.docx` e o PDF quando a plataforma executa código.
+
+**Como pack de prompts** — se não puderes, ou não quiseres. O [`PROMPT-PACK.pt-PT.md`](PROMPT-PACK.pt-PT.md) é a mesma coisa reduzida a onze prompts para copiar e colar em qualquer conversa, incluindo numa conta gratuita no telemóvel. Sem projeto, sem ficheiros, sem definições, sem caixa de instruções. Em troca: colas as regras no início de cada conversa nova e passas tu o texto para o Word ou para o Google Docs.
+
+| Queres | Usa | Preparação |
+|---|---|---|
+| Comandos, exportação automática de ficheiros, regras carregadas uma vez | [`PROJECT-INSTRUCTIONS.pt-PT.md`](PROJECT-INSTRUCTIONS.pt-PT.md) num projeto, num GPT personalizado ou num CLI de agentes | Cinco minutos, uma vez |
+| Nada para configurar, funciona numa conversa simples no telemóvel | [`PROMPT-PACK.pt-PT.md`](PROMPT-PACK.pt-PT.md) | Nenhuma |
+
+As duas formas correm a mesma passagem anti-slop em cada rascunho e partem da mesma regra de evidência. O [`LINKEDIN.pt-PT.md`](LINKEDIN.pt-PT.md) serve para as duas.
+
+Se a tua caixa de instruções for minúscula (campos de instruções personalizadas do ChatGPT, um Gem do Gemini, o Copilot), a via de projeto também funciona em versão reduzida: cola o Apêndice C do `PROJECT-INSTRUCTIONS.pt-PT.md`, que fica dentro dos 1 500 caracteres.
 
 ## O problema que isto resolve
 
@@ -20,14 +39,17 @@ Nada é inventado. A reescrita muda ênfase, ordem, redação e extensão. Se a 
 
 ## Comandos
 
+Estes comandos são da **via de projeto**. No pack de prompts, o mesmo trabalho é feito pelos Prompts 1 a 10.
+
 | Comando | Resultado |
 |---|---|
 | `/setup` | Inventário de Carreira, problemas do CV atual, até oito perguntas |
 | `/cv` + anúncio | CV adaptado, relatório de correspondência, lista de lacunas, `.docx` e PDF |
 | `/cover` + anúncio | Carta de apresentação com as mesmas regras |
+| `/linkedin` + perfil exportado | Análise e reescrita de título, "Acerca de", experiência e competências |
 | `/check` | Verificação anti-slop e ATS em qualquer texto colado de volta |
 
-## Começar
+## Começar: como projeto
 
 **Projeto do Claude ou do ChatGPT**: `PROJECT-INSTRUCTIONS.pt-PT.md` nas instruções do projeto, tudo o que está em `attachments/` mais o teu CV como ficheiros do projeto. Depois corre `/setup`.
 
@@ -43,16 +65,18 @@ Depois envia:
 
 > `/setup` Aqui está o meu CV atual. Constrói o Inventário de Carreira, diz-me o que está fraco e pergunta-me o que precisas.
 
+Não consegues fazer nada disto, ou não queres? Salta para o [`PROMPT-PACK.pt-PT.md`](PROMPT-PACK.pt-PT.md) e cola o Prompt 0.
+
 ## O que está nesta pasta
 
 | Ficheiro | Para que serve |
 |---|---|
-| `PROJECT-INSTRUCTIONS.pt-PT.md` | As instruções. Também em `PROJECT-INSTRUCTIONS.pt-PT.pdf` e `.docx` |
-| `PROMPT-PACK.pt-PT.md` | Nove prompts para copiar e colar, sem projeto, sem ficheiros e sem comandos |
+| `PROJECT-INSTRUCTIONS.pt-PT.md` | As instruções da via de projeto. Também em `PROJECT-INSTRUCTIONS.pt-PT.pdf` e `.docx` |
+| `PROMPT-PACK.pt-PT.md` | A via sem preparação: onze prompts para copiar e colar, sem projeto, sem ficheiros e sem comandos |
+| `LINKEDIN.pt-PT.md` | O lado do perfil: formas de exportar, limites de campo, a análise e a ordem da reescrita |
 | `attachments/anti-slop-rules.pt-PT.md` | As regras de escrita em português, autónomas, para qualquer plataforma |
 | `attachments/cv-print-template.pt-PT.html` | Modelo de CV A4, pronto para impressão, uma coluna |
 | `attachments/cover-letter-print-template.pt-PT.html` | Modelo de carta de apresentação A4 |
-| `LINKEDIN.pt-PT.md` | O lado do perfil: formas de exportar, limites de campo, a análise e a ordem da reescrita |
 
 Os scripts `md2docx.py` e `no_slop_check.py` são iguais nas duas línguas e vivem em [`../attachments/`](../attachments). O verificador tem modo português:
 
@@ -74,13 +98,13 @@ As instruções trazem três caminhos de exportação, para a resposta correspon
 
 - **Com execução de código** (Claude com análise, ChatGPT com a ferramenta de código, Mistral Vibe, agente local): `python3 md2docx.py cv.md "Nome-Apelido-Cargo-Empresa.docx"` para Word, e `weasyprint`, Chrome headless ou LibreOffice para o PDF.
 - **Com ficheiros mas sem comandos** (canvas, artefactos): preenche o `cv-print-template.pt-PT.html`, imprime para PDF no navegador, ou abre o mesmo ficheiro no Word e guarda como `.docx`.
-- **Só texto**: um bloco markdown único, colado no Word ou no Google Docs e exportado à mão.
+- **Só texto** (via do pack de prompts): um bloco markdown único, colado no Word ou no Google Docs e exportado à mão.
 
 O `md2docx.py` não precisa de pacotes nem de rede, e é por isso que funciona em ambientes que bloqueiam instalações. Escreve um ficheiro Office Open XML verdadeiro: parágrafos, títulos, marcadores, tabelas e código monoespaçado, tudo a partir de markdown simples.
 
 ## Uma nota sobre honestidade na ferramenta
 
-Um assistente que diz "criei o seu PDF" sem produzir nada desperdiçou o teu tempo. As instruções proíbem essa afirmação: se a plataforma não consegue gerar um ficheiro, diz isso e aponta o caminho de exportação que serve. Todos os ficheiros deste repositório foram produzidos e abertos pelas ferramentas que descrevem.
+Um assistente que diz "criei o seu PDF" sem produzir nada desperdiçou o teu tempo. As duas vias proíbem essa afirmação: se a plataforma não consegue gerar um ficheiro, diz isso e aponta o caminho de exportação que serve. Todos os ficheiros deste repositório foram produzidos e abertos pelas ferramentas que descrevem.
 
 ## Créditos
 

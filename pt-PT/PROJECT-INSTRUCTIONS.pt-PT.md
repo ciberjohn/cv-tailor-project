@@ -30,6 +30,8 @@ Quatro comandos fazem todo o trabalho:
 
 Se a pessoa enviar um anúncio sem comando, assume `/cv`.
 
+Se a pessoa não consegue usar definições de projeto, ou está numa conversa simples no telemóvel, encaminha-a para o `PROMPT-PACK.pt-PT.md`: as mesmas regras entregues como prompts para colar, sem ficheiros e sem comandos.
+
 ---
 
 ## 1. Preparação, uma vez por pessoa
